@@ -19,6 +19,21 @@ screen.fill(Color(background_color))
 #create simple object
 square = pygame.Surface((40, 40))
 square.fill(('#F5184C'))
+'''Create object with classes'''
+class Sprite:
+    def __init__(self, xpos, ypos, filename):
+        self.x = xpos
+        self.y = ypos
+        self.bitmap = pygame.image.load(filename)# get object image, where filename = path to image
+        self.bitmap.set_colorkey((0, 0, 0))# make sprites background color invisible
+    def render(self):
+        screen.blit(self.bitmap, (self.x, self.y))
+#hero object
+hero = Sprite(0, 0, 'hero.png')
+aim = Sprite(50, 0, 'aim.png')
+hero.go_right = True
+hero.go_down = True
+
 #create main game loop
 play = True
 while play:
@@ -45,3 +60,5 @@ while play:
     pygame.display.flip()# update all on the screen
     screen.blit(square, (square_x_pos, square_y_pos))# display object
     pygame.time.delay(10)# delay time of all game process, argument in milliseconds
+    hero.render()
+    aim.render()
