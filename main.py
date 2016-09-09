@@ -1,11 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import pygame
 from pygame import *
 #main variables
 win_width = 800
 win_hight = 640
 main_window = (win_width, win_hight)
-background_color = '#A3FAA0'
+background_image = pygame.image.load('image/firstStage_background.jpg')
 square_x_pos = 0
 square_go_right = True
 square_y_pos = 0
@@ -14,11 +15,11 @@ square_go_down = True
 window = pygame.display.set_mode(main_window)
 pygame.display.set_caption('Hello PyGamers!')
 #create gameplay screen
-screen = pygame.Surface(win_width - 10, win_hight - 10)
+screen = pygame.Surface((int(win_width - 10), int(win_hight - 10)))
 screen.fill(Color(background_color))
 #create simple object
 square = pygame.Surface((40, 40))
-square.fill(('#F5184C'))
+square.fill((50, 50, 50))
 '''Create object with classes'''
 class Sprite:
     def __init__(self, xpos, ypos, filename):
@@ -29,12 +30,12 @@ class Sprite:
     def render(self):
         screen.blit(self.bitmap, (self.x, self.y))
 #hero object
-hero = Sprite(0, 0, 'hero.png')
-aim = Sprite(50, 0, 'aim.png')
+hero = Sprite(0, 0, 'image/cat_fight.png')
+aim = Sprite(50, 0, 'image/squeaky_mouse.png')
 hero.go_right = True
 hero.go_down = True
 
-#create main game loop
+'''Main Game Loop'''
 play = True
 while play:
     for e in pygame.event.get():
