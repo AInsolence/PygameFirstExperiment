@@ -39,7 +39,7 @@ hero.go_down = True
 '''Main Game Loop'''
 play = True
 while play:
-    for e in pygame.event.get():
+    for e in pygame.event.get():   # !!!EVENT Handler block!!!
         if e.type == pygame.QUIT:
             play = False
     if hero.go_right:
