@@ -11,7 +11,7 @@ window = pygame.display.set_mode(main_window)
 pygame.display.set_caption('CAT The CATCHER!')
 #create gameplay screen
 background_image = pygame.image.load('image/firstStage_background.jpg')
-screen = pygame.Surface((int(win_width - 10), int(win_hight - 10)))
+screen = pygame.Surface((int(win_width), int(win_hight)))
 
 '''Check collisions of objects in our game'''
 def collide(object1, object2):
@@ -26,10 +26,10 @@ class Sprite:
         self.ypos = ypos
         self.bitmap = pygame.image.load(filename)# get object image, where filename = path to image
         #self.bitmap.set_colorkey((0, 0, 0))# make sprites background color invisible if it exists
-        height = 50
-        width = 50
+        xheight = 50
+        ywidth = 50
     def render(self):
-        screen.blit(self.bitmap, (self.x, self.y))
+        screen.blit(self.bitmap, (self.xpos, self.ypos))
 '''Game objects'''
 hero = Sprite(0, 0, 'image/monster5050.png')
 aim = Sprite(50, 0, 'image/squeaky_mouse.png')
@@ -44,7 +44,7 @@ while play:
             play = False
     if hero.go_right:
         hero.xpos += 1
-        if hero.xpos > win_width - hero.width:
+        if hero.xpos > 800:
             hero.go_right = False
     else:
         hero.xpos -= 1
@@ -52,15 +52,13 @@ while play:
             hero.go_right = True
     if hero.go_down:
         hero.ypos += 1
-        if hero.ypos > win_hight - hero.hight:
+        if hero.ypos > 535 - 50:
             hero.go_down = False
     else:
         hero.ypos -= 1
         if hero.ypos < 0:
             hero.go_down = True   
-    if collide(hero, aim):
-        
-            
+    #if collide(hero, aim):
     pygame.display.flip()# update all on the screen
     pygame.time.delay(3)# delay time of all game process, argument in milliseconds
     window.blit(screen, (0,0))# display screen
