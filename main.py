@@ -6,7 +6,11 @@ from pygame import *
 win_width = 800
 win_hight = 640
 main_window = (win_width, win_hight)
+
 background_image = pygame.image.load('image/firstStage_background.jpg')
+=======
+background_color = (70, 30, 100)
+>>>>>>> a1465e15a49400fc2558e5ac3883823a93fe7c81
 square_x_pos = 0
 square_go_right = True
 square_y_pos = 0
@@ -15,11 +19,19 @@ square_go_down = True
 window = pygame.display.set_mode(main_window)
 pygame.display.set_caption('Hello PyGamers!')
 #create gameplay screen
+<<<<<<< HEAD
 screen = pygame.Surface((int(win_width - 10), int(win_hight - 10)))
 screen.fill(Color(background_color))
 #create simple object
 square = pygame.Surface((40, 40))
 square.fill((50, 50, 50))
+=======
+screen = pygame.Surface((win_width, win_hight))
+screen.fill(background_color)
+#create simple object
+square = pygame.Surface((40, 40))
+square.fill((100, 0, 0))
+>>>>>>> a1465e15a49400fc2558e5ac3883823a93fe7c81
 '''Create object with classes'''
 class Sprite:
     def __init__(self, xpos, ypos, filename):
@@ -30,8 +42,11 @@ class Sprite:
     def render(self):
         screen.blit(self.bitmap, (self.x, self.y))
 #hero object
+<<<<<<< HEAD
 hero = Sprite(0, 0, 'image/cat_fight.png')
 aim = Sprite(50, 0, 'image/squeaky_mouse.png')
+=======
+>>>>>>> a1465e15a49400fc2558e5ac3883823a93fe7c81
 hero.go_right = True
 hero.go_down = True
 
@@ -60,6 +75,6 @@ while play:
     window.blit(screen, (0,0))# display screen
     pygame.display.flip()# update all on the screen
     screen.blit(square, (square_x_pos, square_y_pos))# display object
-    pygame.time.delay(10)# delay time of all game process, argument in milliseconds
+    pygame.time.delay(3)# delay time of all game process, argument in milliseconds
     hero.render()
     aim.render()
