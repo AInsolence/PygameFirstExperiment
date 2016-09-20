@@ -6,12 +6,24 @@ from pygame import *
 win_width = 850
 win_hight = 535
 main_window = ((win_width - 10), (win_hight - 10))
+
 #create window
 window = pygame.display.set_mode(main_window)
 pygame.display.set_caption('My First Game!!!')
+
 #create gameplay screen
-background_image = pygame.image.load('image/firstStage_background.jpg')
 screen = pygame.Surface((win_width, win_hight))
+
+#status bar
+info_string_top = pygame.Surface((win_width, 30))
+
+'''Style'''
+background_image = pygame.image.load('image/firstStage_background.jpg')
+info_string_top.fill((50, 50, 70))
+#fonts
+pygame.font.init()
+info_string_font = pygame.font.Font(None, 25)
+
 
 '''Check collisions of objects in our game'''
 def collide(object1, object2):
@@ -51,11 +63,13 @@ play = True
 scores = 0
 while play:
     for e in pygame.event.get():   # !!!EVENT Handler block!!!
+        
         if e.type == pygame.QUIT:
             print ('Your record is ', scores, ' scores!!!', '\n', 'Congratulations!')
             print ('Your best level is ', int(level + 1))
             play = False
-        '''Movements'''
+        
+        '''KEYBOARD Control'''
         if e.type == pygame.KEYDOWN:
             '''Hero movements'''
             #x axis movement
@@ -63,7 +77,7 @@ while play:
                 if hero.xpos > 0:
                     hero.xpos -= 3
             if e.key == pygame.K_RIGHT:
-                if hero.xpos < win_width - hero.xwidth - 10:
+                if hero.xpos < win_width - hero.xwidth - 50:
                     hero.xpos += 3  
             #y axis movement
             if e.key == pygame.K_UP:
@@ -79,6 +93,23 @@ while play:
                     bullet.xpos = hero.xpos + (hero.xwidth/2)
                     bullet.ypos = hero.ypos + (hero.yheight/2)
                     bullet.push = True
+    
+    '''MOUSE Control'''
+    if e.type == pygame.MOUSEMOTION:
+        pygame.mouse.set_visible(False)
+        mouse = pygame.mouse.get_pos()
+        if (win_width - hero.xwidth - 40) > mouse[0] > 0:
+            hero.xpos = mouse[0]
+        if (win_hight - hero.yheight - 40)> mouse[1] > (win_hight - 200):
+            hero.ypos = mouse[1]
+    if e.type == pygame.MOUSEBUTTONDOWN:
+        if e.button == 1:
+            if bullet.push == False:
+                    bullet.xpos = hero.xpos + (hero.xwidth/2)
+                    bullet.ypos = hero.ypos + (hero.yheight/2)
+                    bullet.push = True
+
+
     '''Collizion handler'''
     if collide(aim, bullet):
         bullet.push = False
@@ -111,7 +142,8 @@ while play:
     pygame.display.flip()# update all on the screen
     pygame.time.delay(1)# delay time of all game process, argument in milliseconds
     window.blit(screen, (0,0))# display screen
-    screen.blit(background_image, (0,0))# show background image
+    screen.blit(background_image, (0,30))# show background image
+    window.blit(info_string_top, (0,0))
     bullet.render()
     hero.render()
     aim.render()
